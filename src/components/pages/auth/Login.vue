@@ -52,9 +52,8 @@ export default {
           email: this.email,
           password: this.password,
         });
-        console.log(response.data.token);
         this.authStore.login(response.data);
-        this.$router.push("/articles");
+        this.$router.push("/translations");
       } catch (error) {
         toast.error(error.response.data.error);
       }
