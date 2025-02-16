@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "@/components/pages/auth/Login.vue";
 import Signup from "@/components/pages/auth/Signup.vue";
+import { useAuthStore } from "@/stores/Index";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -22,5 +23,21 @@ const router = createRouter({
     },
   ],
 });
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+ 
+  if (to.name === "Login" && authStore.isAuthenticated) {
+    return next("/translations");
+  }
 
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    return next({ path: "/" });
+  }
+
+  if (to.path === "/" && authStore.isAuthenticated) {
+    return next("/translations");
+  }
+
+  next();
+});
 export default router;

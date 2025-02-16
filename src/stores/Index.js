@@ -1,27 +1,29 @@
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import apiService from "@/services/apiService";
 
 export const useAuthStore = defineStore("auth", () => {
-  const user = ref(JSON.parse(localStorage.getItem('user')) || null);
+  const user = ref(JSON.parse(localStorage.getItem("user")) || null);
 
   const setUser = (userData) => {
     user.value = userData;
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem("user", JSON.stringify(userData));
   };
 
   const login = (data) => {
     const token = data.token;
     localStorage.setItem("token", JSON.stringify(token));
     apiService.setAuthToken(token);
-    setUser(data.user); 
+    setUser(data.user);
   };
+
+  const isAuthenticated = computed(() => !!user.value);
 
   const register = (data) => {
     const token = data.access_token;
     localStorage.setItem("token", JSON.stringify(token));
     apiService.setAuthToken(token);
-    setUser(data.user); 
+    setUser(data.user);
   };
 
   const logout = () => {
@@ -31,5 +33,5 @@ export const useAuthStore = defineStore("auth", () => {
     apiService.setAuthToken(null);
   };
 
-  return { user, login, register, logout, setUser };
+  return { user, login, register, logout, setUser, isAuthenticated };
 });

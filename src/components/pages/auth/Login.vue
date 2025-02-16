@@ -55,7 +55,7 @@ export default {
         this.authStore.login(response.data);
         this.$router.push("/translations");
       } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
       }
     },
   },

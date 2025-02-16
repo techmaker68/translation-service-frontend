@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h2>Translations</h2>
       <div>
-        <button @click="logout" class="btn btn-danger me-2">Logout</button>
+        <button @click="logoutUser" class="btn btn-danger me-2">Logout</button>
         <button @click="showForm" class="btn btn-primary me-2">
           Add New Translation
         </button>
@@ -108,6 +108,8 @@ import {
   exportTranslations
 } from "@/api/translations";
 import { toast } from "vue3-toastify";
+import { useAuthStore } from "@/stores/Index";
+import { mapStores } from "pinia";
 
 export default {
   components: {
@@ -173,7 +175,8 @@ export default {
       this.currentArticle = article;
       this.showForm();
     },
-    logout() {
+    logoutUser() {
+      this.authStore.logout();
       this.$router.push("/");
     },
     searchTranslations() {
@@ -182,11 +185,16 @@ export default {
     clearSearch() {
       this.searchQuery = "";
       this.fetchTranslations();
-    }
+    },
+  
+
   },
   created() {
     this.fetchTranslations();
-  }
+  },
+  computed: {
+    ...mapStores(useAuthStore),
+  },
 };
 </script>
 

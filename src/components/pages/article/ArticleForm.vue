@@ -71,7 +71,7 @@ export default {
         translation_key: this.translation_key,
         language_id: this.language_id,
         content: this.content,
-        tags: this.tags
+        tags: this.tags.toString()
       };
 
       try {
@@ -85,7 +85,7 @@ export default {
         this.$emit("submit");
         this.$emit("close");
       } catch (error) {
-        console.error("Failed to submit translation:", error);
+        toast.error(error.response.data.message);
       }
     },
     async fetchLanguages() {
