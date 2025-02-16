@@ -27,9 +27,6 @@
         </div>
         <button type="submit" class="btn btn-primary w-100">Login</button>
       </form>
-      <!-- <span class="text-center mb-4"
-        >Doesn't have an account? <router-link to="/register"> Register </router-link>
-      </span> -->
     </div>
   </div>
 </template>
