@@ -1,7 +1,7 @@
 import apiService from "@/services/apiService";
 
-export const gettranslations = async () => {
-  return await apiService.get("/translations");
+export const gettranslations = async (url) => {
+  return await apiService.get(url);
 };
 
 export const savetranslations = async (data) => {
